@@ -1,3 +1,9 @@
-SE test
+# WorkDrive — SE
 
-Hello world
+클라우드 기반 조직 협업용 파일 공유 시스템 **WorkDrive** 프로젝트 저장소입니다.
+
+## 과제 제출물
+
+| 구분 | 내용 | 위치 |
+|------|------|------|
+| 프로젝트 정의서 | 명칭·시스템 설명·핵심 기능·유사 소프트웨어 분석 | [`doc/WorkDrive.md`](doc/WorkDrive.md) |
