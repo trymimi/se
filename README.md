@@ -7,3 +7,4 @@
 | 구분 | 내용 | 위치 |
 |------|------|------|
 | 프로젝트 정의서 | 명칭·시스템 설명·핵심 기능·유사 소프트웨어 분석 | [`doc/WorkDrive.md`](doc/WorkDrive.md) |
+| 품질 요소 측정 | 사용자/유지보수/관리자 관점 기대치와 우선순위 품질 요소 정리 | [`doc/Quality_Attribute_Measurement.md`](doc/Quality_Attribute_Measurement.md) |
