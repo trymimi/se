@@ -11,6 +11,7 @@
 | 프로젝트 정의서 | 명칭·시스템 설명·핵심 기능·유사 소프트웨어 분석 | [`doc/WorkDrive.md`](doc/WorkDrive.md) |
 | 품질 요소 측정 | 사용자/유지보수/관리자 관점 기대치와 우선순위 품질 요소 정리 | [`doc/Quality_Attribute_Measurement.md`](doc/Quality_Attribute_Measurement.md) |
 | 프로젝트 관리 계획서 | 개발 계획·팀 구성·품질 관리·개발 환경·산출물·리스크 관리 정리 | [`doc/프로젝트관리계획서.md`](doc/프로젝트관리계획서.md) |
+| 요구사항 정의서 | 기능적·비기능적·인터페이스·기타 요구사항 정리 | [`doc/요구사항정의서.md`](doc/요구사항정의서.md) |
 
 ## 저장소 구조
 
