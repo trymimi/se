@@ -1,0 +1,20 @@
+sequenceDiagram
+    actor 사용자
+    participant UI as 웹 UI
+    participant Auth as 권한 서비스
+    participant FileSvc as 파일 서비스
+    participant Storage as 파일 저장소
+    participant DB as 데이터베이스
+    participant Log as 로그 서비스
+
+    사용자->>UI: 파일 선택 후 업로드 요청
+    UI->>Auth: 대상 폴더 업로드 권한 확인
+    Auth-->>UI: 권한 확인 결과
+    UI->>FileSvc: 파일 업로드 요청
+    FileSvc->>Storage: 파일 바이너리 저장
+    Storage-->>FileSvc: 저장 위치 반환
+    FileSvc->>DB: 파일 메타데이터 저장
+    FileSvc->>DB: 파일 버전 생성
+    FileSvc->>Log: 업로드 이벤트 기록
+    FileSvc-->>UI: 업로드 성공 응답
+    UI-->>사용자: 파일 목록 갱신

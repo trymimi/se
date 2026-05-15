@@ -1,0 +1,15 @@
+sequenceDiagram
+    actor 관리자
+    participant UI as 관리자 UI
+    participant Auth as 권한 서비스
+    participant Audit as 감사 로그 서비스
+    participant DB as 데이터베이스
+
+    관리자->>UI: 로그 조회 조건 입력
+    UI->>Auth: 관리자 권한 확인
+    Auth-->>UI: 권한 확인 결과
+    UI->>Audit: 로그 조회 요청
+    Audit->>DB: 조건 기준 로그 조회
+    DB-->>Audit: 로그 목록 반환
+    Audit-->>UI: 로그 결과 반환
+    UI-->>관리자: 감사 로그 표시

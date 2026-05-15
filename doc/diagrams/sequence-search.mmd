@@ -1,0 +1,15 @@
+sequenceDiagram
+    actor 사용자
+    participant UI as 웹 UI
+    participant Search as 검색 서비스
+    participant Auth as 권한 서비스
+    participant DB as 데이터베이스
+
+    사용자->>UI: 검색어와 필터 입력
+    UI->>Search: 검색 요청
+    Search->>Auth: 사용자 접근 가능 범위 조회
+    Auth-->>Search: 접근 가능 파일 범위 반환
+    Search->>DB: 권한 범위 내 파일 검색
+    DB-->>Search: 검색 결과 반환
+    Search-->>UI: 정렬된 결과 반환
+    UI-->>사용자: 검색 결과 표시

@@ -1,0 +1,16 @@
+sequenceDiagram
+    actor 사용자
+    participant UI as 웹 UI
+    participant Auth as 권한 서비스
+    participant CommentSvc as 댓글 서비스
+    participant DB as 데이터베이스
+    participant Log as 로그 서비스
+
+    사용자->>UI: 댓글 내용 입력
+    UI->>Auth: 댓글 작성 권한 확인
+    Auth-->>UI: 권한 확인 결과
+    UI->>CommentSvc: 댓글 등록 요청
+    CommentSvc->>DB: 댓글 저장
+    CommentSvc->>Log: 댓글 작성 이벤트 기록
+    CommentSvc-->>UI: 댓글 등록 완료
+    UI-->>사용자: 댓글 목록 갱신

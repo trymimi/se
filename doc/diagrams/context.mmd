@@ -1,0 +1,7 @@
+flowchart LR
+    User[사용자] --> WorkDrive[WorkDrive 시스템]
+    Admin[관리자] --> WorkDrive
+    External[외부 사용자] --> WorkDrive
+    WorkDrive --> Storage[파일 저장소]
+    WorkDrive --> DB[(데이터베이스)]
+    WorkDrive --> Mail[이메일 서비스]

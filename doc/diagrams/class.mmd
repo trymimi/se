@@ -1,0 +1,114 @@
+classDiagram
+    class User {
+        +String userId
+        +String email
+        +String name
+        +String status
+        +signUp()
+        +login()
+        +updateProfile()
+    }
+
+    class Admin {
+        +manageUser()
+        +managePolicy()
+        +viewAuditLog()
+    }
+
+    class Role {
+        +String roleId
+        +String roleName
+        +List permissions
+    }
+
+    class Folder {
+        +String folderId
+        +String name
+        +String ownerId
+        +createFolder()
+        +moveFile()
+    }
+
+    class FileItem {
+        +String fileId
+        +String fileName
+        +Long size
+        +String extension
+        +String storagePath
+        +upload()
+        +download()
+        +delete()
+    }
+
+    class SharePermission {
+        +String permissionId
+        +String targetType
+        +String permissionType
+        +grant()
+        +revoke()
+        +change()
+    }
+
+    class ShareLink {
+        +String linkId
+        +String token
+        +Date expiresAt
+        +Boolean active
+        +create()
+        +expire()
+        +validate()
+    }
+
+    class Comment {
+        +String commentId
+        +String content
+        +Date createdAt
+        +create()
+        +update()
+        +delete()
+    }
+
+    class FileVersion {
+        +String versionId
+        +Integer versionNo
+        +String storagePath
+        +Date createdAt
+        +restore()
+    }
+
+    class ActivityLog {
+        +String logId
+        +String eventType
+        +String ipAddress
+        +Date occurredAt
+        +record()
+        +search()
+    }
+
+    class StorageService {
+        +saveFile()
+        +loadFile()
+        +deleteFile()
+    }
+
+    class Database {
+        +save()
+        +find()
+        +update()
+        +delete()
+    }
+
+    User <|-- Admin
+    User --> Role
+    User "1" --> "0..*" FileItem : owns
+    Folder "1" --> "0..*" FileItem : contains
+    FileItem "1" --> "0..*" SharePermission
+    FileItem "1" --> "0..*" ShareLink
+    FileItem "1" --> "0..*" Comment
+    FileItem "1" --> "1..*" FileVersion
+    User "1" --> "0..*" Comment : writes
+    User "1" --> "0..*" ActivityLog
+    FileItem "1" --> "0..*" ActivityLog
+    StorageService --> FileItem
+    Database --> User
+    Database --> FileItem

@@ -1,0 +1,49 @@
+flowchart TB
+    subgraph Actors[액터]
+        direction LR
+        User[사용자]
+        Admin[관리자]
+        External[외부 사용자]
+    end
+
+    subgraph System[WorkDrive 유스케이스]
+        direction LR
+
+        subgraph Account[계정]
+            direction TB
+            UC01((회원가입))
+            UC02((로그인))
+        end
+
+        subgraph File[파일]
+            direction TB
+            UC03((업로드))
+            UC04((다운로드))
+            UC08((버전 조회/복구))
+            UC09((검색))
+        end
+
+        subgraph Collaboration[공유/협업]
+            direction TB
+            UC05((파일/폴더 공유))
+            UC06((외부 링크 생성))
+            UC07((댓글 작성/조회))
+        end
+
+        subgraph AdminOps[운영/감사]
+            direction TB
+            UC10((활동 로그 기록))
+            UC11((사용자/권한 관리))
+            UC12((감사 로그 조회))
+        end
+    end
+
+    User --> Account
+    User --> File
+    User --> Collaboration
+    User --> UC10
+
+    Admin --> UC02
+    Admin --> AdminOps
+
+    External --> UC04
