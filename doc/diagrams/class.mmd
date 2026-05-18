@@ -48,6 +48,7 @@ classDiagram
         +grant()
         +revoke()
         +change()
+        +verify()
     }
 
     class ShareLink {
@@ -99,6 +100,39 @@ classDiagram
         +delete()
     }
 
+    class FileUploadControl {
+        +upload()
+        -verifyUploadPermission()
+    }
+
+    class ShareControl {
+        +grantShare()
+        +revokeShare()
+        -verifySharePermission()
+    }
+
+    class CommentControl {
+        +addComment()
+        +updateComment()
+        +deleteComment()
+        -verifyCommentPermission()
+    }
+
+    class VersionControl {
+        +restoreVersion()
+        -verifyModifyPermission()
+    }
+
+    class SearchControl {
+        +search()
+        -resolveAccessibleScope()
+    }
+
+    class AuditLogControl {
+        +queryLogs()
+        -verifyAdminPermission()
+    }
+
     User <|-- Admin
     User --> Role
     User "1" --> "0..*" FileItem : owns
@@ -113,3 +147,35 @@ classDiagram
     StorageService --> FileItem
     Database --> User
     Database --> FileItem
+    FileUploadControl ..> FileItem
+    FileUploadControl ..> FileVersion
+    FileUploadControl ..> SharePermission
+    FileUploadControl ..> Folder
+    FileUploadControl ..> StorageService
+    FileUploadControl ..> Database
+    FileUploadControl ..> ActivityLog
+    ShareControl ..> SharePermission
+    ShareControl ..> ShareLink
+    ShareControl ..> FileItem
+    ShareControl ..> Folder
+    ShareControl ..> Database
+    ShareControl ..> ActivityLog
+    CommentControl ..> Comment
+    CommentControl ..> SharePermission
+    CommentControl ..> FileItem
+    CommentControl ..> Database
+    CommentControl ..> ActivityLog
+    VersionControl ..> FileVersion
+    VersionControl ..> FileItem
+    VersionControl ..> SharePermission
+    VersionControl ..> StorageService
+    VersionControl ..> Database
+    VersionControl ..> ActivityLog
+    SearchControl ..> FileItem
+    SearchControl ..> SharePermission
+    SearchControl ..> Folder
+    SearchControl ..> Database
+    AuditLogControl ..> ActivityLog
+    AuditLogControl ..> Admin
+    AuditLogControl ..> Role
+    AuditLogControl ..> Database

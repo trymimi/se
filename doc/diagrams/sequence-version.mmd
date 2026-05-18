@@ -1,19 +1,21 @@
 sequenceDiagram
     actor 사용자
     participant UI as 웹 UI
-    participant Auth as 권한 서비스
-    participant Version as 버전 서비스
-    participant Storage as 파일 저장소
-    participant DB as 데이터베이스
-    participant Log as 로그 서비스
+    participant Ctrl as VersionControl
+    participant Perm as SharePermission
+    participant Ver as FileVersion
+    participant Storage as StorageService
+    participant DB as Database
+    participant Log as ActivityLog
 
     사용자->>UI: 복구할 버전 선택
-    UI->>Auth: 수정 권한 확인
-    Auth-->>UI: 권한 확인 결과
-    UI->>Version: 버전 복구 요청
-    Version->>DB: 선택 버전 정보 조회
-    Version->>Storage: 선택 버전 파일 확인
-    Version->>DB: 현재 버전을 새 복구 버전으로 기록
-    Version->>Log: 버전 복구 이벤트 기록
-    Version-->>UI: 복구 완료 응답
+    UI->>Ctrl: restoreVersion(fileId, versionId, userId)
+    Ctrl->>Perm: verifyModify(userId, fileId)
+    Perm-->>Ctrl: 권한 확인 결과
+    Ctrl->>Ver: restore(versionId)
+    Ver->>DB: find(versionId)
+    Ver->>Storage: loadFile(storagePath)
+    Ver->>DB: update(currentVersion)
+    Ctrl->>Log: record(VERSION_RESTORE)
+    Ctrl-->>UI: 복구 완료 응답
     UI-->>사용자: 복구 결과 표시

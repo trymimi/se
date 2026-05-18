@@ -1,16 +1,22 @@
 sequenceDiagram
     actor 사용자
     participant UI as 웹 UI
-    participant Auth as 권한 서비스
-    participant Share as 공유 서비스
-    participant DB as 데이터베이스
-    participant Log as 로그 서비스
+    participant Ctrl as ShareControl
+    participant Perm as SharePermission
+    participant SLink as ShareLink
+    participant DB as Database
+    participant Log as ActivityLog
 
     사용자->>UI: 공유 대상과 권한 선택
-    UI->>Auth: 공유 변경 권한 확인
-    Auth-->>UI: 권한 확인 결과
-    UI->>Share: 공유 권한 저장 요청
-    Share->>DB: SharePermission 저장/갱신
-    Share->>Log: 공유 이벤트 기록
-    Share-->>UI: 공유 완료 응답
+    UI->>Ctrl: grantShare(resourceId, target, permissionType)
+    Ctrl->>Perm: verifyShareChange(userId, resourceId)
+    Perm-->>Ctrl: 권한 확인 결과
+    Ctrl->>Perm: grant()
+    Perm->>DB: save()
+    opt 외부 링크 공유
+        Ctrl->>SLink: create()
+        SLink->>DB: save()
+    end
+    Ctrl->>Log: record(SHARE)
+    Ctrl-->>UI: 공유 완료 응답
     UI-->>사용자: 공유 완료 메시지 표시
